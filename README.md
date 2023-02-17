@@ -285,7 +285,7 @@ This graph contains all dependencies to build, run tests and work with the event
 $ bazel build //eventstore
 ```
 
-TODO: Is a full monorepo checkout still required for the analysis of the build graph?
+TODO: Is a full monorepo checkout still required for the analysis of the build graph? How to deal with this as a monorepo grows? Can build aware build subgraphs be cached?
 
 TODO: Handling sparse checkout tree on package (folder) level means more files than required by the `eventstore` target are in the sparse checkout, ie. `uniqueid_test` in this example. Is this the right level of granularity?
 
