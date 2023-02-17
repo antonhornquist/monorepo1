@@ -169,7 +169,7 @@ On Windows a one-liner can visualize different graph based Bazel queries.
 bazel query "//..." --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
-The resulting visualization:
+The resulting visualization of the invocation above is a graph of all targets and their dependencies:
 
 ![full build graph](build-graph-1.png)
 
@@ -234,7 +234,7 @@ $ bazel query --noimplicit_deps "deps(//eventstore)" --output graph | dot -Tpng 
 
 ![eventstore target with dependencies](build-graph-2.png)
 
-Since packages represent folders in the workspace these are the relevant items to use in a sparse checkout
+Since packages represent folders in the workspace these are items that can be considered for use in a sparse checkout of the source code based on the eventstore target.
 
 ```
 $ bazel query --noimplicit_deps "deps(//eventstore)" --output package
@@ -243,7 +243,7 @@ httpservercommon
 uniqueid
 ```
 
-With the list of packages we can separately do a sparse checkout of the eventstore target and its dependencies
+With the list of packages we can separately do a sparse Git checkout of the eventstore target and its dependencies
 
 ```
 $ git clone --no-checkout [git-repository] [folder]
@@ -253,6 +253,8 @@ $ git sparse-checkout add eventstore
 $ git sparse-checkout add httpservercommon
 $ git sparse-checkout add uniqueid
 ```
+
+TODO: Is a full monorepo checkout still required for the analysis of the build graph?
 
 TODO: What action to take when the build graph changes?
 
