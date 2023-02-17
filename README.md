@@ -275,7 +275,7 @@ $ bazel query "//..." --output graph | dot -Tpng > graph.png && start graph.png
 
 ![full build graph](build-graph-3.png)
 
-This graph contains all dependencies to build and work with the eventstore target.
+This graph contains all dependencies to build, run tests and work with the eventstore target.
 
 ```
 $ bazel build //eventstore
