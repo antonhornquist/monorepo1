@@ -246,5 +246,5 @@ $ git sparse-checkout add httpservercommon
 $ git sparse-checkout add uniqueid
 ```
 
-TODO: what action to take when the build graph changes?
+TODO: What action to take when the build graph changes?
 
