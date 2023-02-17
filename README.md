@@ -240,6 +240,7 @@ With the list of packages we can separately do a sparse checkout of the eventsto
 ```
 $ git clone --no-checkout monorepo1 sparse-eventstore-checkout
 $ git sparse-checkout init --cone
+$ git checkout main
 $ git sparse-checkout add eventstore
 $ git sparse-checkout add httpservercommon
 $ git sparse-checkout add uniqueid
