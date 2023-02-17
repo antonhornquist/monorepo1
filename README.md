@@ -1,5 +1,7 @@
 # POC Bazel Monorepo
 
+![build status](https://github.com/antonhornquist/monorepo1/actions/workflows/build-and-test.yaml/badge.svg)
+
 ## Purpose
 
 Establish a small monorepo containing disparate services written in Go built and tested using Bazel to
