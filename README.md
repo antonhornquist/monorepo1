@@ -169,7 +169,11 @@ On Windows a one-liner can visualize different graph based Bazel queries.
 bazel query "//..." --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
-All dependencies including external go dependencies can be included in the visualization. This is a very large graph.
+The result image:
+
+![build graph 1](build-graph-1.png)
+
+All dependencies including external go dependencies can be included in the visualization. The result is an accurate depiction of dependencies but also a very large graph.
 
 ```
 bazel query --noimplicit_deps "deps(//...)" --output graph | dot -Tpng > graph.png && start graph.png
