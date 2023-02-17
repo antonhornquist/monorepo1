@@ -2,9 +2,10 @@
 
 ## Purpose
 
-Establish a small monorepo containing disparate services written in Go built and tested using Bazel to evaluate working with Bazel and sparsely checking out buildable source code from the repo based on the Bazel build graph.
-
-TODO: Github Workflow CI ?
+Establish a small monorepo containing disparate services written in Go built and tested using Bazel to
+- evaluate working with Bazel
+- evaluate sparse checkout of buildable source code from the repo based on the Bazel build graph.
+- using Bazel in a simple CI pipeline
 
 ## Requirements
 
@@ -94,7 +95,7 @@ It should be noted that while Gazelle can use go.mod files to generate its exter
 
 ## Continuous Integration
 
-TODO
+A [very simple pipeline](.github/workflows/build-and-test.yaml) that runs two jobs - Build and Run Tests - sequentially in a Github Workflow has been defined. It uses a Bazel cache.
 
 ## Visualizing the build
 
