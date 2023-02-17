@@ -28,7 +28,7 @@ jobs:
           mv bazelisk-linux-amd64 "${GITHUB_WORKSPACE}/bin/bazel"
           chmod +x "${GITHUB_WORKSPACE}/bin/bazel"
 
-      - name: compile code
+      - name: build
         run: bazel build //...
   run-tests:
     runs-on: ubuntu-latest
