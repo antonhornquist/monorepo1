@@ -254,7 +254,21 @@ $ git sparse-checkout add httpservercommon
 $ git sparse-checkout add uniqueid
 ```
 
+If we run the same query as for the entire monorepo (described above) in the sparse checkout we can see the subgraph checked out.
+
+```
+bazel query "//..." --output graph | dot -Tpng > graph.png && start graph.png
+```
+
+![full build graph](build-graph-3.png)
+
+This graph contains all dependencies to build and work with the eventstore target.
+
+`bazel build //eventstore`
+
 TODO: Is a full monorepo checkout still required for the analysis of the build graph?
+
+TODO: Handling sparse checkout tree on package (folder) level means more files than required by the `eventstore` target are in the sparse checkout, ie. `uniqueid_test` in this example. Is this the right level of granularity?
 
 TODO: What action to take when the build graph changes?
 
