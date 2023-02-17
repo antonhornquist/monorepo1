@@ -48,13 +48,13 @@ This replaces the use of `go test` for tests written in Go source code.
 
 ### Building a specific target or running a specific test
 
-`bazel build //webapp` (equivalent to `bazel build //webapp:webapp`)
+`bazel build //webapp:webapp` (`bazel build //webapp` can also be used)
 
-`bazel test //webapp:tests`
+`bazel test //uniqueid:uniqueid_test`
 
-### Running a binary
+### Running a specific binary
 
-`bazel run //webapp`
+`bazel run //webapp:webapp` (same as `bazel run //webapp`)
 
 ## How the WORKSPACE file was defined
 
