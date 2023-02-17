@@ -39,25 +39,25 @@ Regardless of how it is invoked Bazel will only rebuild target or tests not alre
 
 ### Building all (updated) targets
 
-`bazel build //...`
+`$ bazel build //...`
 
 This replaces the use of `go build` for Go source code.
 
 ### Running all (updated) tests
 
-`bazel test //...`
+`$ bazel test //...`
 
 This replaces the use of `go test` for tests written in Go source code.
 
 ### Building a specific target or running a specific test
 
-`bazel build //webapp:webapp` (`bazel build //webapp` can also be used)
+`$ bazel build //webapp:webapp` (`$ bazel build //webapp` can also be used)
 
-`bazel test //uniqueid:uniqueid_test`
+`$ bazel test //uniqueid:uniqueid_test`
 
 ### Running a specific binary
 
-`bazel run //webapp:webapp` (same as `bazel run //webapp`)
+`$ bazel run //webapp:webapp` (same as `$ bazel run //webapp`)
 
 ## How the WORKSPACE file was defined
 
@@ -160,13 +160,13 @@ digraph mygraph {
 Using GraphViz the textual directed acyclical graph representation can be visualized as written to a PNG file.
 
 ```
-bazel query "//..." --output graph | dot -Tpng > graph.png
+$ bazel query "//..." --output graph | dot -Tpng > graph.png
 ```
 
 On Windows a one-liner can visualize different graph based Bazel queries.
 
 ```
-bazel query "//..." --output graph | dot -Tpng > graph.png && start graph.png
+$ bazel query "//..." --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
 The resulting visualization of the invocation above is a graph of all targets and their dependencies:
@@ -176,13 +176,13 @@ The resulting visualization of the invocation above is a graph of all targets an
 All dependencies including external go dependencies can be included in the visualization. The result is an accurate depiction of dependencies but also a very large graph.
 
 ```
-bazel query --noimplicit_deps "deps(//...)" --output graph | dot -Tpng > graph.png && start graph.png
+$ bazel query --noimplicit_deps "deps(//...)" --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
 All dependencies including external go dependencies and implicit dependencies can be included in the visualization. This makes the graph even larger.
 
 ```
-bazel query --noimplicit_deps "deps(//...)" --output graph | dot -Tpng > graph.png && start graph.png
+$ bazel query --noimplicit_deps "deps(//...)" --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
 ## Build aware sparse checkouts
@@ -243,10 +243,23 @@ httpservercommon
 uniqueid
 ```
 
-With the list of packages we can separately do a sparse Git checkout of the eventstore target and its dependencies
+With the list of packages we can separately perform a sparse Git checkout of the eventstore target and its dependencies
 
 ```
 $ git clone --no-checkout [git-repository] [folder]
+$ cd [folder]
+$ git sparse-checkout init --cone
+$ git checkout main
+$ git sparse-checkout add [package-1]
+$ git sparse-checkout add [package-2]
+$ git sparse-checkout add [package-3]
+$ git sparse-checkout add [...]
+$ git sparse-checkout add [package-n]
+```
+
+```
+$ git clone --no-checkout git@github.com:antonhornquist/monorepo1.git my-sparse-eventstore-checkout
+$ cd my-sparse-eventstore-checkout
 $ git sparse-checkout init --cone
 $ git checkout main
 $ git sparse-checkout add eventstore
@@ -257,14 +270,16 @@ $ git sparse-checkout add uniqueid
 If we run the same query as for the entire monorepo (described above) in the sparse checkout we can see the subgraph checked out.
 
 ```
-bazel query "//..." --output graph | dot -Tpng > graph.png && start graph.png
+$ bazel query "//..." --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
 ![full build graph](build-graph-3.png)
 
 This graph contains all dependencies to build and work with the eventstore target.
 
-`bazel build //eventstore`
+```
+$ bazel build //eventstore
+```
 
 TODO: Is a full monorepo checkout still required for the analysis of the build graph?
 
