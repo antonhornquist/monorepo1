@@ -238,7 +238,7 @@ uniqueid
 With the list of packages we can separately do a sparse checkout of the eventstore target and its dependencies
 
 ```
-$ git clone --no-checkout monorepo1 sparse-eventstore-checkout
+$ git clone --no-checkout [git-repository] [folder]
 $ git sparse-checkout init --cone
 $ git checkout main
 $ git sparse-checkout add eventstore
