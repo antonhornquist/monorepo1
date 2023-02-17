@@ -169,9 +169,9 @@ On Windows a one-liner can visualize different graph based Bazel queries.
 bazel query "//..." --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
-The result image:
+The resulting visualization:
 
-![build graph 1](build-graph-1.png)
+![full build graph](build-graph-1.png)
 
 All dependencies including external go dependencies can be included in the visualization. The result is an accurate depiction of dependencies but also a very large graph.
 
@@ -226,11 +226,13 @@ $ bazel query --noimplicit_deps "deps(//eventstore)"
 //uniqueid:uniqueid.go
 ```
 
-We can visualize this sub-graph
+We can visualize this sub-graph in the monorepo
 
 ```
 $ bazel query --noimplicit_deps "deps(//eventstore)" --output graph | dot -Tpng > graph.png && start graph.png
 ```
+
+![eventstore target with dependencies](build-graph-2.png)
 
 Since packages represent folders in the workspace these are the relevant items to use in a sparse checkout
 
