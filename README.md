@@ -99,7 +99,7 @@ It should be noted that while Gazelle can use go.mod files to generate its exter
 
 A [very simple pipeline](.github/workflows/build-and-test.yaml) that runs two jobs - Build and Run Tests - sequentially in a Github Workflow has been defined. It uses a Bazel cache.
 
-Following above assertion that "[a] project should always be able to run `bazel build //...` and `bazel test //...` successfully on its stable branch" the Github CI workflow is very simple. It defines two jobs to run sequentially, the first one validates no compilation errors are occuring (`bazel build //...`) and the second one validates no tests are broken (`bazel test //...`). In practice, due to the use of a Bazel cache the contiuous integration build only rebuilds what's necessary, depending on recent code changes.
+Following above assertion that "[a] project should always be able to run `bazel build //...` and `bazel test //...` successfully on its stable branch" the Github CI workflow is very simple. It defines two jobs to run sequentially, the first one validates no compilation errors are occuring (`bazel build //...`) and the second one validates no tests are broken (`bazel test //...`). In practice, due to the use of a Bazel cache the continuous integration build only rebuilds what's necessary, depending on recent code changes.
 
 ## Visualizing the build
 
