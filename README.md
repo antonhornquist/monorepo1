@@ -4,7 +4,7 @@
 
 Establish a small monorepo containing disparate services written in Go built and tested using Bazel to evaluate working with Bazel and sparsely checking out buildable source code from the repo based on the Bazel build graph.
 
-TODO: Github Workflow CI
+TODO: Github Workflow CI ?
 
 ## Requirements
 
@@ -42,7 +42,7 @@ This replaces the use of `go build` for Go source code.
 
 ### Running all (updated) tests
 
-`bazel test //...` TODO: --test_output=errors
+`bazel test //...`
 
 This replaces the use of `go test` for tests written in Go source code.
 
@@ -92,13 +92,13 @@ It should be noted that while Gazelle can use go.mod files to generate its exter
 
 `Error in path: Unable to load package for //:WORKSPACE: BUILD file not found in any of the following directories. Add a BUILD file to a directory to mark it as a package.`
 
-## Hermeticism
-
 ## Continuous Integration
 
 TODO
 
 ## Visualizing the build
+
+Bazel query command and GraphViz can be used to visualize the build graph.
 
 The `start [filename.png]` part of the following commands only works on Windows. It is used to automatically display the generated visualization. Apart from that, all commands should work on GNU Linux and macOS as long as requirements above are met.
 
@@ -122,7 +122,7 @@ $ bazel query "//..."
 ```
 
 ```
-$ bazel query "//..."
+$ bazel query "//..." --output graph
 digraph mygraph {
   node [shape=box];
   "//nativeapp:nativeapp"
@@ -156,13 +156,27 @@ digraph mygraph {
 
 Using GraphViz the textual directed acyclical graph representation can be visualized as written to a PNG file.
 
-`bazel query "//..." --output graph | dot -Tpng > graph.png`
+```
+bazel query "//..." --output graph | dot -Tpng > graph.png
+```
 
 On Windows a one-liner can visualize different graph based Bazel queries.
 
-`bazel query "//..." --output graph | dot -Tpng > graph.png && start graph.png`
+```
+bazel query "//..." --output graph | dot -Tpng > graph.png && start graph.png
+```
 
-`bazel query --noimplicit_deps "deps(//...)" --output graph | dot -Tpng > graph.png && start graph.png`
+All dependencies including external go dependencies can be included in the visualization. This is a very large graph.
+
+```
+bazel query --noimplicit_deps "deps(//...)" --output graph | dot -Tpng > graph.png && start graph.png
+```
+
+All dependencies including external go dependencies and implicit dependencies can be included in the visualization. This makes the graph even larger.
+
+```
+bazel query --noimplicit_deps "deps(//...)" --output graph | dot -Tpng > graph.png && start graph.png
+```
 
 ## Build aware sparse checkouts
 
@@ -230,5 +244,5 @@ $ git sparse-checkout add httpservercommon
 $ git sparse-checkout add uniqueid
 ```
 
-TODO: open question - what if the build graph changes?
+TODO: what action to take when the build graph changes?
 
