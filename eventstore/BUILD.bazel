@@ -1,0 +1,21 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_binary(
+    name = "eventstore",
+    embed = [":eventstore_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "eventstore_lib",
+    srcs = [
+        "main.go",
+        "mock.go",
+    ],
+    importpath = "github.com/antonhornquist/monorepo1/eventstore",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//httpservercommon",
+        "//uniqueid",
+    ],
+)

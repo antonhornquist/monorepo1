@@ -1,0 +1,19 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_binary(
+    name = "webapp",
+    embed = [":webapp_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "webapp_lib",
+    srcs = [
+        "main.go",
+        "mock.go",
+        "templates.go",
+    ],
+    importpath = "github.com/antonhornquist/monorepo1/webapp",
+    visibility = ["//visibility:private"],
+    deps = ["//httpservercommon"],
+)

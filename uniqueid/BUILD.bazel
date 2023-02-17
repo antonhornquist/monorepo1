@@ -1,0 +1,14 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "uniqueid",
+    srcs = ["uniqueid.go"],
+    importpath = "github.com/antonhornquist/monorepo1/uniqueid",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "uniqueid_test",
+    srcs = ["uniqueid_test.go"],
+    embed = [":uniqueid"],
+)
