@@ -5,7 +5,7 @@
 ## Purpose
 
 Establish a small monorepo containing disparate services written in Go built and tested using Bazel to evaluate
-- using Bazel as a build tool for a monorepo containing a variety of services and libraries.
+- Bazel as a build tool for a monorepo containing a variety of services and libraries.
 - sparse checkout of source code from the repo based on the Bazel build graph.
 - incremental Bazel builds in a simple CI pipeline
 
