@@ -259,6 +259,8 @@ $ git sparse-checkout add [...]
 $ git sparse-checkout add [package-n]
 ```
 
+For eventstore target, practically:
+
 ```
 $ git clone --no-checkout git@github.com:antonhornquist/monorepo1.git my-sparse-eventstore-checkout
 $ cd my-sparse-eventstore-checkout
