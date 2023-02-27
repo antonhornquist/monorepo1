@@ -13,11 +13,9 @@ jobs:
       - name: Bazel cache
         id: bazel-cache
         uses: actions/cache@v3
-        env:
-          version: 4.2.1
         with:
           path: | 
-            ~/.cache/bazel
+            %HOME%
           key: ${{ runner.os }}-bazel-cache
 
       - name: build
@@ -31,11 +29,9 @@ jobs:
       - name: Bazel cache
         id: bazel-cache
         uses: actions/cache@v3
-        env:
-          version: 4.2.1
         with:
           path: | 
-            ~/.cache/bazel
+            %HOME%
           key: ${{ runner.os }}-bazel-cache
 
       - name: run tests
