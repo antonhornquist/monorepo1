@@ -20,6 +20,7 @@ jobs:
 
       - name: build
         run: bazel build --platforms=@io_bazel_rules_go//go/toolchain:windows_amd64 //...
+        shell: bash
   run-tests:
     runs-on: windows-latest
     steps:
@@ -36,4 +37,5 @@ jobs:
 
       - name: run tests
         run: bazel test --platforms=@io_bazel_rules_go//go/toolchain:windows_amd64 --test_output=all //...
+        shell: bash
     needs: build
