@@ -5,7 +5,7 @@ import (
 )
 
 func TestLengthOfPseudoUniqueId(t *testing.T) {
-	expected := 6
+	expected := 5
 	actual := len(PseudoUniqueId())
     if actual != expected {
         t.Fatalf(`len(PseudoUniqueId()) = %d, expected %d`, actual, expected)
