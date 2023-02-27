@@ -5,7 +5,7 @@ on:
      - main
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -48,10 +48,7 @@ jobs:
 
       - name: Install bazelisk
         run: |
-          curl -LO "https://github.com/bazelbuild/bazelisk/releases/download/v1.16.0/bazelisk-linux-amd64"
-          mkdir -p "${GITHUB_WORKSPACE}/bin/"
-          mv bazelisk-linux-amd64 "${GITHUB_WORKSPACE}/bin/bazel"
-          chmod +x "${GITHUB_WORKSPACE}/bin/bazel"
+          choco install bazel
 
       - name: run tests
         run: bazel test --platforms=@io_bazel_rules_go//go/toolchain:windows_amd64 --test_output=all //...
