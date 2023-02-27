@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_binary(
+    name = "nativeapp",
+    embed = [":nativeapp_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "nativeapp_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/antonhornquist/monorepo1/nativeapp",
+    visibility = ["//visibility:private"],
+    deps = [
+        "@org_gioui//app",
+        "@org_gioui//io/key",
+        "@org_gioui//io/system",
+        "@org_gioui//op",
+        "@org_gioui//op/paint",
+        "@org_gioui//unit",
+        "@org_golang_x_image//draw",
+    ],
+)
