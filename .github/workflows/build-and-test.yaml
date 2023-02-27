@@ -54,5 +54,5 @@ jobs:
           chmod +x "${GITHUB_WORKSPACE}/bin/bazel"
 
       - name: run tests
-        run: bazel test //...
+        run: bazel test --platforms=@io_bazel_rules_go//go/toolchain:windows_amd64 //...
     needs: build
