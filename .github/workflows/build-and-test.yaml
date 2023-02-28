@@ -53,6 +53,6 @@ jobs:
 
       - name: analyze code coverage
         run: |
-          bazel coverage //...
+          bazel coverage --combined_report=lcov //...
           cat $(bazel info output_path)/_coverage/_coverage_report.dat
     needs: run-tests
