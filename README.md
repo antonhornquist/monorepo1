@@ -63,7 +63,7 @@ This replaces the use of `go test` for tests written in Go source code.
 
 Bazel and Go (using `rules_go`) supports cross-compilation of source code, see [How do I cross-compile?](https://github.com/bazelbuild/rules_go#how-do-i-cross-compile) in the `rules_go` documentation.
 
-If `--platforms` option is not supplied the platform on which Bazel is run takes precedence. During evaluation, it became apparent how build results diverged between a local Windows workstation and Linux based Github Actions pipeline. Build results of simple Golang builds diverge in terms of the binaries produced. It should also be noted that low level external `Cgo` dependencies have very different dependency graphs between platforms and may cause a Baezl build that passes on Windows to break on Linux. Specifying a common platform (ie. `bazel build --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64 //...`) makes compilation more deterministic.
+If `--platforms` option is not supplied the platform on which Bazel is run takes precedence. During evaluation, it became apparent how build results diverged between a local Windows workstation and Linux based Github Actions pipeline. Build results of simple Golang builds diverge in terms of the binaries produced. It should also be noted that low level external `Cgo` dependencies have very different dependency graphs between platforms and may cause a Bazel build that passes on Windows to break on Linux. Specifying a common platform (ie. `bazel build --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64 //...`) makes compilation more deterministic.
 
 ## How the WORKSPACE file was defined
 
