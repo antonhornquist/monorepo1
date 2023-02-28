@@ -37,3 +37,20 @@ jobs:
       - name: run tests
         run: bazel test --test_output=all //...
     needs: build
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Bazel cache
+        id: bazel-cache
+        uses: actions/cache@v3
+        with:
+          path: | 
+            ~/.cache/bazel
+          key: ${{ runner.os }}-bazel-cache
+
+      - name: run tests
+        run: bazel coverage //...
+    needs: run-tests
