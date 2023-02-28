@@ -51,6 +51,8 @@ jobs:
             ~/.cache/bazel
           key: ${{ runner.os }}-bazel-cache
 
-      - name: run tests
-        run: bazel coverage //...
+      - name: analyze code coverage
+        run: |
+          bazel coverage //...
+          cat $(bazel info output_path)/_coverage/_coverage_report.dat
     needs: run-tests
