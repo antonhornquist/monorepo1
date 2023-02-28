@@ -1,6 +1,6 @@
 # POC Bazel Monorepo
 
-[![build status](https://github.com/antonhornquist/monorepo1/actions/workflows/build-and-test.yaml/badge.svg)](https://github.com/antonhornquist/monorepo1/actions?query=branch%3Amaster)
+[![build status](https://github.com/antonhornquist/monorepo1/actions/workflows/build-and-test.yaml/badge.svg)](https://github.com/antonhornquist/monorepo1/actions?query=branch%3Amain)
 
 ## Purpose
 
