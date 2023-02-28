@@ -57,7 +57,7 @@ jobs:
           cat $(bazel info output_path)/_coverage/_coverage_report.dat
           mkdir -p ~/artifacts
           cp $(bazel info output_path)/_coverage/_coverage_report.dat ~/artifacts
-          genhtml --output genhtml "$(bazel info output_path)/_coverage/_coverage_report.dat" > ~/artifacts/index.html
+          # genhtml --output genhtml "$(bazel info output_path)/_coverage/_coverage_report.dat" > ~/artifacts/index.html
 
       - uses: actions/upload-artifact@v3
         with:
