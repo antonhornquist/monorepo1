@@ -277,7 +277,7 @@ If we run the same query as for the entire monorepo (described above) in the spa
 $ bazel query "//..." --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
-![full build graph](build-graph-3.png)
+[![full build graph](build-graph-3.png)](https://github.com/antonhornquist/monorepo1/actions?query=branch%3Amaster)
 
 This graph contains all dependencies to build, run tests and work with the eventstore target.
 
