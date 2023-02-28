@@ -1,6 +1,6 @@
 # POC Bazel Monorepo
 
-![build status](https://github.com/antonhornquist/monorepo1/actions/workflows/build-and-test.yaml/badge.svg)
+[![build status](https://github.com/antonhornquist/monorepo1/actions/workflows/build-and-test.yaml/badge.svg)](https://github.com/antonhornquist/monorepo1/actions?query=branch%3Amaster)
 
 ## Purpose
 
@@ -58,6 +58,12 @@ This replaces the use of `go test` for tests written in Go source code.
 ### Running a specific binary
 
 `$ bazel run //webapp:webapp` (same as `$ bazel run //webapp`)
+
+### Platform specific considerations and cross-compilation
+
+Bazel and Go (using `rules_go`) supports cross-compilation of source code, see [How do I cross-compile?](https://github.com/bazelbuild/rules_go#how-do-i-cross-compile) in the `rules_go` documentation.
+
+If `--platforms` option is not supplied the platform on which Bazel is run takes precedence. During evaluation, it became apparent how build results diverged between a local Windows workstation and Linux based Github Actions pipeline. Build results of simple Golang builds diverge in terms of the binaries produced. It should also be noted that low level external `Cgo` dependencies have very different dependency graphs between platforms and may cause a Baezl build that passes on Windows to break on Linux. Specifying a common platform (ie. `bazel build --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64 //...`) makes compilation more deterministic.
 
 ## How the WORKSPACE file was defined
 
@@ -277,7 +283,7 @@ If we run the same query as for the entire monorepo (described above) in the spa
 $ bazel query "//..." --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
-[![full build graph](build-graph-3.png)](https://github.com/antonhornquist/monorepo1/actions?query=branch%3Amaster)
+![full build graph](build-graph-3.png)
 
 This graph contains all dependencies to build, run tests and work with the eventstore target.
 
