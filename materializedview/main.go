@@ -3,10 +3,10 @@ package main
 import (
 	// "io/ioutil"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
-	"flag"
 )
 
 type handler struct {
@@ -31,9 +31,9 @@ type photoEventData struct {
 }
 
 type record struct {
-	Id          string      `json:"id"`
-	AggregateId string      `json:"aggregate_id,omitempty"`
-	Version     string      `json:"version,omitempty"`
+	Id          string         `json:"id"`
+	AggregateId string         `json:"aggregate_id,omitempty"`
+	Version     string         `json:"version,omitempty"`
 	Data        photoEventData `json:"data"`
 }
 
@@ -100,7 +100,7 @@ func reconstructMV(records []record) (photoMV, int) {
 
 	uniqueAggregateIds := getUniqueAggregateIds(records)
 
-	for aggregateId, _ := range uniqueAggregateIds {
+	for aggregateId := range uniqueAggregateIds {
 		for _, rec := range getRecordsForAggregateId(records, aggregateId) {
 			logRecordIgnored := func() {
 				log.Printf("Record ignored: %v", rec)
@@ -124,9 +124,9 @@ func reconstructMV(records []record) (photoMV, int) {
 					logRecordInconsistent()
 				} else {
 					photos[aggregateId] = photoEntity{
-						Version: rec.Version,
-						Title: photoEventData.Title,
-						Content: photoEventData.Content,
+						Version:  rec.Version,
+						Title:    photoEventData.Title,
+						Content:  photoEventData.Content,
 						Filename: photoEventData.Filename}
 				}
 			case "deleted":
@@ -167,4 +167,3 @@ func logAsJsonIfPossible(p interface{}) {
 	}
 	log.Printf(string(bytes))
 }
-

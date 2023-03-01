@@ -5,13 +5,13 @@ import (
 	"flag"
 	"fmt"
 	"github.com/antonhornquist/monorepo1/httpservercommon"
+	id "github.com/antonhornquist/monorepo1/uniqueid"
+	"io"
 	"log"
 	"net/http"
 	"os"
-	"sync"
 	"path/filepath"
-	"io"
-	id "github.com/antonhornquist/monorepo1/uniqueid"
+	"sync"
 )
 
 type handler struct {

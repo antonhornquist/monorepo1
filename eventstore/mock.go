@@ -11,82 +11,81 @@ func getMockStreams() map[string]*stream {
 	photo4AggregateId := id.PseudoUniqueId()
 
 	return map[string]*stream{
-		"stream_1_unique_id": &stream{
+		"stream_1_unique_id": {
 			Id: "photos1",
 			Records: []record{
-				record{
+				{
 					Id:          id.PseudoUniqueId(),
 					AggregateId: photo1AggregateId,
 					Version:     "1",
-					Data:        photoEventData{
+					Data: photoEventData{
 						EventType: "added",
-						Title: "my title",
-						Content: "my content",
-						Filename: "photo1.jpg"}},
-				record{
+						Title:     "my title",
+						Content:   "my content",
+						Filename:  "photo1.jpg"}},
+				{
 					Id:          id.PseudoUniqueId(),
 					AggregateId: photo1AggregateId,
 					Version:     "2",
-					Data:        photoEventData{
+					Data: photoEventData{
 						EventType: "updated",
-						Title: "new title"}},
-				record{
+						Title:     "new title"}},
+				{
 					Id:          id.PseudoUniqueId(),
 					AggregateId: photo2AggregateId,
 					Version:     "1",
-					Data:        photoEventData{
+					Data: photoEventData{
 						EventType: "added",
-						Title: "my title",
-						Content: "my content",
-						Filename: "photo2.jpg"}},
-				record{
+						Title:     "my title",
+						Content:   "my content",
+						Filename:  "photo2.jpg"}},
+				{
 					Id:          id.PseudoUniqueId(),
 					AggregateId: photo1AggregateId,
 					Version:     "3",
-					Data:        photoEventData{
+					Data: photoEventData{
 						EventType: "deleted"}},
-				record{
+				{
 					Id:          id.PseudoUniqueId(),
 					AggregateId: photo2AggregateId,
 					Version:     "2",
-					Data:        photoEventData{
+					Data: photoEventData{
 						EventType: "updated",
-						Content: "new content"}},
-				record{
+						Content:   "new content"}},
+				{
 					Id:          id.PseudoUniqueId(),
 					AggregateId: photo3AggregateId,
 					Version:     "1",
-					Data:        photoEventData{
+					Data: photoEventData{
 						EventType: "added",
-						Title: "another title",
-						Content: "new content"}},
-				record{
+						Title:     "another title",
+						Content:   "new content"}},
+				{
 					Id:          id.PseudoUniqueId(),
 					AggregateId: photo4AggregateId,
 					Version:     "1",
-					Data:        photoEventData{
+					Data: photoEventData{
 						EventType: "added",
-						Title: "yet another title",
-						Content: "bla bla",
-						Filename: "photo4.jpg"}}}},
-		"stream_2_unique_id": &stream{
+						Title:     "yet another title",
+						Content:   "bla bla",
+						Filename:  "photo4.jpg"}}}},
+		"stream_2_unique_id": {
 			Id: "photos2",
 			Records: []record{
-				record{
+				{
 					Id:          id.PseudoUniqueId(),
 					AggregateId: photo1AggregateId,
 					Version:     "1",
-					Data:        photoEventData{
+					Data: photoEventData{
 						EventType: "added",
-						Title: "my title",
-						Content: "my content",
-						Filename: "photo1.jpg"}},
-				record{
+						Title:     "my title",
+						Content:   "my content",
+						Filename:  "photo1.jpg"}},
+				{
 					Id:          id.PseudoUniqueId(),
 					AggregateId: photo1AggregateId,
 					Version:     "2",
-					Data:        photoEventData{
+					Data: photoEventData{
 						EventType: "updated",
-						Title: "new title"}}}}}
+						Title:     "new title"}}}}}
 }
-

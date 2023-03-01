@@ -44,4 +44,3 @@ func waitForEnter() {
 	var input string
 	fmt.Scanln(&input)
 }
-

@@ -1,10 +1,10 @@
 package main
 
 import (
+	"bytes"
+	"fmt"
 	"html/template"
 	"log"
-	"fmt"
-	"bytes"
 )
 
 const header = `<!DOCTYPE html>
@@ -74,4 +74,3 @@ func initializeTemplates() {
 		}
 	}
 }
-

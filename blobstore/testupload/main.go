@@ -1,17 +1,17 @@
 package main
 
 import (
+	"flag"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os"
-	"flag"
-	"io/ioutil"
 )
 
 func main() {
 	var (
 		blobstorePort = flag.Int("port", 5000, "Blob store port.")
-		filename = flag.String("file", "", "File to upload.")
+		filename      = flag.String("file", "", "File to upload.")
 	)
 
 	flag.Parse()

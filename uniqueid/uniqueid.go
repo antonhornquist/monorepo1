@@ -1,8 +1,8 @@
 package uniqueid
 
 import (
-	"time"
 	"math/rand"
+	"time"
 )
 
 func PseudoUniqueId() string {
@@ -11,10 +11,9 @@ func PseudoUniqueId() string {
 
 	rand.Seed(time.Now().UnixNano())
 
-    b := make([]rune, n)
-    for i := range b {
-        b[i] = alphanumericChars[rand.Intn(len(alphanumericChars))]
-    }
-    return string(b)
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = alphanumericChars[rand.Intn(len(alphanumericChars))]
+	}
+	return string(b)
 }
-

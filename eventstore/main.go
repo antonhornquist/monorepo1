@@ -4,14 +4,14 @@ import (
 	//"net/http/httputil"
 	// "io/ioutil"
 	"encoding/json"
+	"flag"
 	"fmt"
+	"github.com/antonhornquist/monorepo1/httpservercommon"
 	"log"
+	"math/rand"
 	"net/http"
 	"sync"
-	"math/rand"
 	"time"
-	"flag"
-	"github.com/antonhornquist/monorepo1/httpservercommon"
 )
 
 type handler struct {
@@ -51,7 +51,7 @@ func main() {
 func newMux() *http.ServeMux {
 	mux := http.NewServeMux()
 
-    rand.Seed(time.Now().UnixNano())
+	rand.Seed(time.Now().UnixNano())
 
 	streams := getMockStreams()
 

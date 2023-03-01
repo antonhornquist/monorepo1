@@ -4,15 +4,15 @@ import (
 	"github.com/antonhornquist/monorepo1/httpservercommon"
 	//"net/http/httputil"
 	// "encoding/json"
-	"io/ioutil"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
-	"strings"
-	"time"
 	"os"
 	"path/filepath"
+	"strings"
+	"time"
 )
 
 type photoEntityCollection []photoEntity
@@ -30,8 +30,8 @@ type photoEntity struct {
 
 func main() {
 	var (
-		listenPort = flag.Int("port", 80, "Listen port.")
-		eventstorePort = flag.Int("eventstore-port", 3000, "Event store port.") // TODO: URL
+		listenPort           = flag.Int("port", 80, "Listen port.")
+		eventstorePort       = flag.Int("eventstore-port", 3000, "Event store port.")             // TODO: URL
 		materializedviewPort = flag.Int("materializedview-port", 4000, "Materialized view port.") // TODO: URL
 	)
 
@@ -72,25 +72,25 @@ func photosHandler(w http.ResponseWriter, r *http.Request) {
 	// GET /photos - display a list of all photos
 	if r.Method == http.MethodGet && count == 1 {
 		displayAListOfAllPhotos(w)
-	// GET /photos/new - return an HTML form for creating a new photo
+		// GET /photos/new - return an HTML form for creating a new photo
 	} else if r.Method == http.MethodPost && count == 2 && paths[1] == "new" {
 		displayHTMLFormForCreatingNewPhoto(w)
-	// POST /photos - create a new photo
+		// POST /photos - create a new photo
 	} else if r.Method == http.MethodPost && count == 1 {
 		// TODO: upload photo file, append photo_added event to eventstore
 		createNewPhoto(w, r)
-	// GET /photos/:id - display a specific photo
+		// GET /photos/:id - display a specific photo
 	} else if count == 2 && r.Method == http.MethodGet {
 		displayASpecificPhoto(w, paths[1])
-	// GET /photos/:id/edit - return an HTML form for editing a photo
+		// GET /photos/:id/edit - return an HTML form for editing a photo
 	} else if count == 3 && paths[2] == "edit" && r.Method == http.MethodGet {
 		// TODO: update a specific photo, append photo_updated event to eventstore
 		displayHTMLFormForEditingAPhoto(w, paths[1])
-	// PATCH/PUT /photos/:id - update a specific photo
+		// PATCH/PUT /photos/:id - update a specific photo
 	} else if count == 2 && (r.Method == http.MethodPatch || r.Method == http.MethodPut) {
 		// TODO: update a specific photo, append photo_updated event to eventstore
 		updateASpecificPhoto(w, paths[1])
-	// DELETE /photos/:id - delete a specific photo
+		// DELETE /photos/:id - delete a specific photo
 	} else if count == 2 && r.Method == http.MethodDelete {
 		// TODO: delete a specific photo, append photo_deleted event to eventstore
 		deleteASpecificPhoto(w, paths[1])
