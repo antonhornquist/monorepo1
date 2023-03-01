@@ -36,7 +36,6 @@ jobs:
 
       - name: run tests
         run: bazel test --test_output=all //...
-    needs: build
   analyze-code-coverage:
     runs-on: ubuntu-latest
     steps:
@@ -64,4 +63,3 @@ jobs:
           name: coverage-reports
           path: ~/artifacts/*
 
-    needs: run-tests
