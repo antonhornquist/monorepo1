@@ -102,20 +102,20 @@ func (h handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 		if fileExists(path) {
 			log.Printf("%s already exists.", path)
-			http.Error(w, "An error has occured.", http.StatusInternalServerError)
+			http.Error(w, "An error has occurred.", http.StatusInternalServerError)
 			return
 		}
 
 		file, err := os.Create(path)
 		if err != nil {
 			log.Printf("Error creating file %s.", path)
-			http.Error(w, "An error has occured.", http.StatusInternalServerError)
+			http.Error(w, "An error has occurred.", http.StatusInternalServerError)
 		}
 
 		_, err = io.Copy(file, r.Body)
 		if err != nil {
 			log.Printf("Error writing to file %s.", path)
-			http.Error(w, "An error has occured.", http.StatusInternalServerError)
+			http.Error(w, "An error has occurred.", http.StatusInternalServerError)
 		}
 
 		w.WriteHeader(http.StatusOK)
