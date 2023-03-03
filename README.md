@@ -110,6 +110,28 @@ A [very simple pipeline](.github/workflows/continuous-integration.yaml) that run
 
 Following above assertion that "[a] project should always be able to run `bazel build //...` and `bazel test //...` successfully on its stable branch" the Github CI workflow is very simple. It defines two jobs to run sequentially, the first one validates no compilation errors are occuring (`bazel build //...`) and the second one validates no tests are broken (`bazel test //...`). In practice, due to the use of a Bazel cache the continuous integration build only rebuilds what's necessary, depending on recent code changes.
 
+## Code visibility
+
+Bazel provide support for two visibility systems: target visibility and load visibility.
+
+Both types of visibility help other developers distinguish between a library's public API and its implementation details and help enforce structure as a workspace grows. Visibility can also be used when deprecating a public API to allow current users while denying new ones.
+
+Target visibility controls which code may depend on a target — that is, which code may use a target's label inside an attribute such as deps.
+
+Load visibility controls whether a .bzl file may be loaded from other BUILD or .bzl files outside the current package.
+
+In this evaluation, target visibility was defined automatically based on Gazelle's automated build file generation.
+
+## Test coverage
+
+Bazel has a capability to produce reports of test coverage. The LCOV reporting format is natively supported. The following command will produce a report based on running all test targets in the repository.
+
+`bazel coverage --combined_report=lcov --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64 //...`
+
+The coverage report is only output in the non-human-readable lcov format. From this, the genhtml utility (part of the lcov project) can be used to produce a report that can be viewed in a web browser:
+
+During evaluation test coverage commands failed when building for the Windows platform but succeeded in the Github CI workflow.
+
 ## Visualizing the build
 
 Bazel query command and GraphViz can be used to visualize the build graph.
