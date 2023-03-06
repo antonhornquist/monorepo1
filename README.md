@@ -36,6 +36,8 @@ A project should always be able to run `bazel build //...` and `bazel test //...
 
 A specific Bazel target and its [direct and transient dependencies](https://bazel.build/concepts/dependencies) are built using `bazel build //path/to:build_target`. Similarly, a specific test is run using `bazel test //path/to:test_target`. Running a test implies also building all its direct and transient dependencies.
 
+A subset of Bazel targets and its direct and transient dependencies are built using `bazel build //some/path/in/the/workspace/...`. This way, it is possible to run builds for a single or number of services but not all.
+
 Regardless of how it is invoked Bazel will only rebuild targets and tests not already cached. Only changed targets and dependencies are rebuilt. This speeds up builds considerably and is a key capability in Bazel to allow for growing a monorepo while still providing quick build and test feedback time.
 
 ### Building all (updated) targets
