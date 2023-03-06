@@ -60,8 +60,6 @@ This replaces the use of `go test` for tests written in Go source code.
 
 `$ bazel run //webapp:webapp` (or `$ bazel run //webapp`)
 
-### Go toolchain version
-
 ### Platform specific considerations and cross-compilation
 
 Bazel and Go (using `rules_go`) supports cross-compilation of source code, see [How do I cross-compile?](https://github.com/bazelbuild/rules_go#how-do-i-cross-compile) in the `rules_go` documentation.
@@ -73,6 +71,10 @@ Specifying a common platform (ie. `bazel build --platforms=@io_bazel_rules_go//g
 ## How the WORKSPACE file was defined
 
 The root level WORKSPACE file is annotated with comments describing the reason behind statements defined in the file. All statements except the `go_repository()` statements were defined manually. The `go_repository()` statements were generated using the `update-repos` option in `gazelle` (see below).
+
+### Go toolchain version
+
+All build toolchains are part of the dependency graph. Multiple toolchains may be used. If a toolchain or version of a toolchain is changed, the depedenct graph is invalidated as expected. The Go 1.19.5 toolchain was defined [in the workspace](https://github.com/antonhornquist/monorepo1/blob/main/WORKSPACE#L22) and used for this evaluation. 
 
 ## How Bazel dependencies were defined based on the Go source code
 
