@@ -1,0 +1,21 @@
+
+                                *query*
+     client <-----> service <-------------+
+                       |                   |
+                       | *events*          |
+                       |                   |
+                  eventstore------------>readstore
+                               *polls*
+
+
+
+          
+  [native|web]app <----- materializedview
+      ^  |                  | *pull changes*
+      |  +----------------> eventstore
+      |     *append*
+      +-------------------> blobstore
+         *read/write*
+
+
+    webapp, materializedview, eventstore and blobstore depend on httpservercommon

@@ -1,0 +1,64 @@
+
+Bidirectional dependency graph queries - what targets are dependent on a particular library? direct dependencies and transient dependencies. how? useful in making 
+
+
+data dependencies cross-language components/tests?
+
+What packages do all packages in the monorepo depend on, excluding seviceusingextlib/...?
+
+bazel query "deps(//... except //serviceusingextlib/...)" --noimplicit_deps --notool_deps --output graph | dot -Tpng > graph.png && start graph.png
+
+bazel query "deps(//...) except filter(\"@\", deps(//...))" --noimplicit_deps --notool_deps --output graph | dot -Tpng > graph.png && start graph.png
+
+bazel query "deps(//..., 1)" --noimplicit_deps --notool_deps --output graph | dot -Tpng > graph.png && start graph.png
+bazel query "deps(//..., 2)" --noimplicit_deps --notool_deps --output graph | dot -Tpng > graph.png && start graph.png
+bazel query "deps(//..., 3)" --noimplicit_deps --notool_deps --output graph | dot -Tpng > graph.png && start graph.png
+bazel query "deps(//..., 4)" --noimplicit_deps --notool_deps --output graph | dot -Tpng > graph.png && start graph.png
+
+bazel query "filter('^[^@]', deps(//...))"
+
+bazel query "filter('^[^@]', deps(//...))" --output label_kind
+
+
+bazel query "allpaths(//...,//uniqueid)" --output graph | dot -Tpng > graph.png && start graph.png
+
+bazel query "deps(@com_github_gin_gonic_gin//:gin, 1)" --output graph | dot -Tpng > graph.png && start graph.png
+
+This operator is typically used when determining what files or packages are required to build a specified target, often in conjunction with the --output package option, below). For example,
+
+bazel query 'buildfiles(deps(//foo))' --output package
+returns the set of all packages on which //foo transitively depends.
+
+Note: A naive attempt at the above query would omit the buildfiles operator and use only deps, but this yields an incorrect result: while the result contains the majority of needed packages, those packages that contain only files that are load()'ed will be missing.
+
+
+
+
+bazel query "deps(@com_github_gin_gonic_gin//:gin, 1)" --output graph | dot -Tpng > graph.png && start graph.png
+bazel query "deps(@com_github_gin_gonic_gin//:gin, 2)" --output graph | dot -Tpng > graph.png && start graph.png
+bazel query "deps(@com_github_gin_gonic_gin//:gin, 3)" --output graph | dot -Tpng > graph.png && start graph.png
+
+
+
+
+Transitive closure of reverse dependencies
+
+reverse dependencies : find all transitive targets dependent 
+
+bazel query "rdeps(//..., //uniqueid)"
+
+bazel query "rdeps(//..., //uniqueid)" --output graph | dot -Tpng > graph.png && start graph.png
+
+bazel query "rdeps(//..., //uniqueid, 1)" --output graph | dot -Tpng > graph.png && start graph.png
+
+
+
+bazel query "buildfiles(deps(//eventstore:eventstore))" --output package
+
+bazel query "buildfiles(deps(//eventstore:eventstore))" --noimplicit_deps --output package
+
+
+bazel query "deps(//)"
+
+
+

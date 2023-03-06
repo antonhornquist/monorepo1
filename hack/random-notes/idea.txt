@@ -1,0 +1,30 @@
+# Idea
+
+- Just a local simple monorepo build
+- No docker images, registries, repos
+- Evaluate feasibility of Bazel as a build tool for incremental, reproducible builds and tests
+- Evaluate Bazel query functionality for sparse checkouts: https://www.youtube.com/watch?v=OsIJ99lkSdM
+- One level above "bazel-golang-minimal-example": https://github.com/HappyCerberus/bazel-golang-minimal-example
+
+## Components
+
+1. event store
+2. blob store
+3. materialized view
+4. web app
+5. native app
+6. httpservercommon
+
+## Dependencies
+
+httpservercommon library used by all web servers (1-4)
+
+## Integration test
+
+Simple test suite based on Cucumber
+
+## Build, test and run
+
+bazel build [target]
+bazel test [test_target]
+bazel run [binary_target]

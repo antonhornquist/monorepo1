@@ -1,0 +1,56 @@
+https://github.com/excitoon/bazel-git-selective-checkout
+
+mkdir <base-name>
+cd <base-name>
+git init
+git config core.sparseCheckout true
+git remote add -f origin <repository-url>
+echo "WORKSPACE" > .git/info/sparse-checkout
+echo "some" >> .git/info/sparse-checkout
+echo "third_party/some/dependency" >> .git/info/sparse-checkout
+echo "third_party/some/other/dependency" >> .git/info/sparse-checkout
+git checkout
+bazel build //some:target
+
+$ bazel query --noimplicit_deps "deps(//eventstore)"
+//eventstore:eventstore
+//eventstore:eventstore_lib
+//eventstore:main.go
+//eventstore:mock.go
+//httpservercommon:httpservercommon
+//httpservercommon:httpservercommon.go
+Loading: 0 packages loaded
+
+$ mkdir eventstore
+$ cd eventstore
+$ git config core.sparseCheckout true
+$ git remote add -f origin <repository-url>
+$ echo "WORKSPACE" > .git/info/sparse-checkout
+$ echo "eventstore" >> .git/info/sparse-checkout
+$ echo "httpservercommon" >> .git/info/sparse-checkout
+$ git checkout
+$ bazel build //eventstore
+
+
+
+sparse-bazel-target-tree.rb [target]
+followed by
+git sparse-checkout init --cone
+git sparse-checkout set [folder1] [folder2]
+
+
+https://github.blog/2020-01-17-bring-your-monorepo-down-to-size-with-sparse-checkout/
+https://git-scm.com/docs/partial-clone
+
+$ git clone --no-checkout monorepo1
+$ cd monorepo1/
+$ sparse-bazel-target-tree.rb //webapp
+Loading: 0 packages loaded
+git sparse-checkout set httpservercommon webapp
+$ git sparse-checkout init --cone
+$ git sparse-checkout set httpservercommon webapp
+$ git sparse-checkout list
+httpservercommon
+webapp
+$ ls
+...

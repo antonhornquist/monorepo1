@@ -1,0 +1,2 @@
+# puts ("git sparse-checkout set " + (["WORKSPACE"] + `bazel query --noimplicit_deps "deps(#{ARGV[0] or raise "usage: scriptname [bazel-build-target]"})"`.split.map { |target| "#{/\/\/(.+):/.match(target)[1]}" }.uniq).join(" "))
+puts (`bazel query --noimplicit_deps "deps(#{ARGV[0] or raise "usage: scriptname [bazel-build-target]"})"`.split.map { |target| "git sparse-checkout add #{/\/\/(.+):/.match(target)[1]}" }.uniq).join "\n"

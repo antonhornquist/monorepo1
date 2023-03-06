@@ -1,0 +1,4 @@
+bazel query --noimplicit_deps "deps(//...)" --output graph | dot -Tpng > graph.png && start graph.png 
+bazel query "deps(//...)" --output graph | dot -Tpng > graph.png && start graph.png 
+bazel query "//..." --output graph | dot -Tpng > graph.png && start graph.png
+bazel cquery "//..." --output graph | dot -Tpng > graph.png && start graph.png

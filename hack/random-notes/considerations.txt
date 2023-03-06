@@ -1,0 +1,112 @@
+# mono vs polyrepo
+
+https://github.com/jankremlacek/go-bazel
+https://github.com/thundergolfer/example-bazel-monorepo
+
+https://dl.acm.org/doi/10.1145/2854146
+https://gigamonkeys.com/mono-vs-multi/
+https://danluu.com/monorepo/
+
+"You are going to solve the same problems if you choose a monorepo or a polyrepo. How do you release? Whats your approach to upgrades? Backward compatibility? Cross project dependencies? What architectural styles are acceptable? How do you manage your build and test infrastructure? The list is endless, and you will solve for them all as you grow. There is no free lunch."
+
+## Monorepos: Please don’t!
+https://medium.com/@mattklein123/monorepos-please-dont-e9a279be011b
+
+"please, do not use a monorepo! Why? Because, at scale, a monorepo must solve every problem that a polyrepo must solve, with the downside of encouraging tight coupling, and the additional herculean effort of tackling VCS scalability."
+
+"The frank reality is that, at scale, how well an organization does with code sharing, collaboration, tight coupling, etc. is a direct result of engineering culture and leadership, and has nothing to do with whether a monorepo or a polyrepo is used. "
+
+## Monorepo: please do!
+https://medium.com/@adamhjk/monorepo-please-do-3657e08a4b70
+
+"It forces the conversation, and makes trade-offs visible"
+
+"When we split the repositories up, we are de-facto creating a coordination and visibility problem."
+
+"Lets say you manage a shared component, A, which is used by teams B, C, and D. Team A is refactoring, adding a better API, and also changing the way the internals work. The result is the change is not backwards compatible. What advice do you give?"
+
+"With a monorepo, this pain is direct and up front. It sucks more, and that’s a good thing"
+
+"The default behavior of a polyrepo is isolation — that’s the whole point. The default behavior of a monorepo is shared responsibility and visibility — that’s the whole point. In both cases, I’m going to build tooling to sand off the rough edges. As a leader, I’ll pick the monorepo every time: because tools must reinforce the culture I want, and culture comes from the tiny decisions and behaviors of a team every day."
+
+## Conclusion
+
+hard problems are hard
+
+Hyrum's law
+
+https://medium.com/@Jakeherringbone/you-too-can-love-the-monorepo-d95d1d6fcebe
+
+Release engineering is all this careful work of tagging versions of various systems such that they work together. It’s part of the umbrella term “integration” — mixing streams of changes across several systems and seeing what happens. Many enterprises have processes where a QA or staging environment mixes all the parts together, where they bake for a week or longer. You find lots of bugs here, and they’re expensive to fix. That’s due to several factors: the bad change was made long ago, the QA environment is unavailable for other purposes until all the integration is complete, and you are interacting with parts of the org where your communication mechanisms are less effective at a distance.
+
+A key consequence of a monorepo is that release engineering doesn’t happen anymore, at least for dependencies between two systems in the same repo. Because all our code is in one repo, Google has no shared QA/Staging environment! The monorepo changes the way you interact with other teams such that everything is always integrated. And hey, our industry has a name for that: continuous integration. If you don’t have a monorepo, you’re not really doing continuous integration, you’re doing frequent integration at best. In a monorepo, even pre-commit testing is already integrated.
+
+## In the wild
+
+Many major companies settle for a bazel/buck and monorepo approach
+
+## Our own experiences
+
+Experiences from ifs-applications Monorepo
+
+Pros:
+- Simplified code navigation
+- Code visibility and transparency
+- Good/(only?) fit for the monolithic architecture if modern CI/CD techniques (PR builds) are to be used
+
+Cons:
+- VCS scaling and performance issues
+- git push / pull (can use sparse checkouts?), git checkout in branches that diverge (can use work trees?)
+- Bitbucket Web UI performance
+- Non-standard git techniques can be used to work around issues but do not play well with SEs that do not have git knowledge and rely on GUI tools (SourceTree, TortoiseSVN)
+
+---
+
+# Things to solve / have an idea of up front
+
+- Breaking changes: Deprecating APIs and implement a new API (same with poly & mono)
+- Code search
+- Release
+
+---
+
+# Options
+
+Monorepo
+w/ sophisticated build system like Bazel/Buck
+Sparse checkouts / Virtual File System for Git
+
+Polyrepo
+Source search: https://sourcegraph.com/
+
+---
+
+# Bazel
+
+## Bazel and Golang basics
+
+WORKSPACE file
+- pull rules_go for golang 
+BUILD files
+Starlark DSL - "Starlark is a dialect of Python" - https://github.com/bazelbuild/starlark
+
+go_binary
+go_library
+go_test
+
+example: https://github.com/HappyCerberus/bazel-golang-minimal-example
+
+## Building, testing and running
+
+bazel build [name of declared go_binary|go_library|go_test]
+bazel test [name of declared go_test]
+bazel run [name of declared go_binary]
+
+## Next steps
+
+Bazel query and sparse checkouts
+Multi-language builds w/ Bazel
+Integration tests
+Hermetic tests
+
+

@@ -1,0 +1,67 @@
+people either love or hate bazel
+
+https://news.ycombinator.com/item?id=32828584
+
+
+
+"Last year I tried doing a side project with a talented ex-Google buddy who insisted we set up Bazel to replace my simple Makefile. Three weeks later it still wasn’t working on my Windows box. We had a mixed Python and C++ code base and I like to use MinGW64 gcc on Windows. He blamed Windows and tried to get me to switch to Mac (no thanks, lol) and eventually he lost interest and gave up. The project went on to win an OpenCV funded competition and became the basis of a startup — good job, GNU Make! So the answer IMHO to “when to use Bazel” is “never” :)"
+
+
+
+"Bazel is a fully reproducible and hermetic build system. A lot of painstaking work goes into it producing the exact same artifacts build after build. And that provides some interesting properties that you can leverage for artifact caching, deployments, and CICD.
+
+We very happily runny a polyglot monorepo w/ 5+ languages, multiple architectures, with fully reproducible artifacts and deployment manifests, all deployed to almost all AWS regions on every build. We update tens of thousands of resources in every environment for every build. The fact that Bazel is creating reproducible artifacts allow us to manage this seamlessly and reliably. Clean builds take an hour+, but our GH self-hosted runners often complete commit to green build for our devs in less than a minute.
+
+The core concept of Bazel is very simple: explicitly declare the input you pass to a rule/tool and explicitly declare the output it creates. If that can click, you're half way there."
+
+
+
+"I will quote my past self (https://news.ycombinator.com/item?id=26064845). We use Bazel’s rules_docker as well, and I would caution someone evaluating it with a note from out experience. What Bazel does well (and as well as Bazel fits your use-case) Bazel does extremely well and is a reproducible joy to use. But if you stray off that path even a tiny bit, you’re often in for a surprisingly inexplicable, unavoidable, far-reaching pain. For example, rules_docker is amazing at laying down files in a known base image. Everything is timestamped to the 1970 unix epoch, for reproducibility, but hey, it’s a bit-perfect reproduction. Need to run one teensy executable to do even the smallest thing that’s trivial with a Dockerfile? Bazel mist create the image transfer it to a docker daemon, run the command, transfer it back... your 1 kb change just took 5 minutes and 36 gb of data being tarred, gzipped, and flung around (hopefully-the-local) network. It may not be a dealbreaker, and you may not care, but be forewarned that these little surprises creep up fairly ofen from unexpected quarters! Edit: after 2-ish years of Bazel, I would say that for 99% of developers and organizations, the most likely answer is "never"."
+
+
+
+"My take - Avoid Bazel as long as you can, for most companies the codebase is not big enough to actually need distributed builds, if you've hit this problem Bazel is probably the best thing you can do today, if you're that big you can probably spare the few dozen headcount needed to make Bazel experience in your company solid.
+Bazel takes on dependency management, which is probably an improvement for a C++ codebase where there is no de-facto package manager. For modern languages like golang where a package manager is widely adopted by the community it's usually just a pain. e.g Bazel's offering for golang relies on generating "Bazel configurations" for the repositories to fetch, this alternative definition of dependencies is not what all the existing go tooling are expecting, and so to get the dev tooling working properly you end up generating one configuration from the other having 2 sources of truth, and pains when there's somehow a mismatch.
+
+Bazel hermeticity is very nice in theory, in practice many of the existing toolchains used by companies that are using Bazel are non-hermetic, resulting in many companies stuck in the process of "migration to Bazel remote execution" forever.
+
+Blaze works well in Google's monorepo where all the dependencies are checked in (vendored), the WORKSPACE file was an afterthought when it was opensourced, and the whole process of fetching remote dependencies in practice becomes a pain for big monorepos (I just want to build this small golang utility, `bazel build //simple:simple` and you end up waiting for a whole bunch of python dependencies you don't need to be downloaded).
+
+And this is all before talking about Javascript, if your JS codebase wasn't originally designed the way Bazel expects it you're probably up for some fun."
+
+
+
+"Personally, I've found Bazel's tooling and dependency management to be extremely aggressive at pushing you to online-only development as your project scales in size. A company I worked for that used it lost multiple person-days for every engineer they had when Covid hit and the VPN went to crap. It's great at being able to offload work to a remote server, but in my opinion that should never be the only way you can get work done. Local development should always be the default, with remote execution being an _option_ when available."
+
+
+
+"My experience with Bazel at a startup (also used Blaze at Google):
+The good:
+- Amazing for Go backends. I can push a reproducible Docker image to Kubernetes with a single Bazel command. I can run our entire backend with a single command that will work on any developer's box.
+- Amazing for testing. All of our backends tests use a fully independent Postgres database managed by Bazel. It's really nice not having to worry about shared state in databases across tests.
+- We can skip Docker on macOS for development which provides on the order of a 10x speedup for tests.
+- BuildBuddy provides a really nice CI experience with remote execution. Bazel tests are structured so I can see exactly which tests failed without trawling through thousands of lines of log output. I've heard good things about EngFlow but BuildBuddy was free to start.
+- Really nice for schema driven codegen like protobufs.
+
+The bad:
+- Bazel is much too hard for TypeScript and JavaScript. We don't use Bazel for our frontend. New bundlers like Vite are much faster and have a developer experience that's hard to replicate with Bazel. Aspect.dev is doing some work on this front. One large hurdle is there's not automatic BUILD file dependency updater like Gazelle for Go.
+- Windows support is too hard largely because most third party dependencies don't work well with Windows.
+- Third party dependencies are still painful. There's ongoing work with bzlmod but my impression is that it won't be usable for a couple of years.
+- Getting started was incredibly painful. However, the ongoing maintenance burden is a few hours per month."
+
+
+
+"I migrated a monorepo including C++, Kotlin, Java, TypeScript and Python to Bazel. It's no small feat, and the DX varies widely across languages and platforms, but it's absolutely worth it. `bazel test //...` from a fresh clone builds & tests everything including gRPC/protobuf code generation, custom code generation, downloading packages, toolchains and linters, dependencies between langs, test suites with coverage across multiple languages. Integration testing is a breeze through data dependencies. The reproducibility guarantees means we can reference container image SHAs in our Terraform and if the image didn't change the deploy is a no-op. Bazel is an outstanding build system that handily solves a lot of practical problems in software engineering. Not just "at scale". Practical problems at any scale."
+
+
+
+"Trying to learn Bazel by porting an existing project to it is a very hard way to get into this amazing tool. If possible, start fresh. I don’t see myself working without it from now on."
+
+
+
+"It's painful and doesn't have customization points. It's a dream for enterprise but useless for a hacker."
+
+
+
+"Honestly, even considering this question for any service/codebase that is under 1,000 developers contributing daily commits, or 10,000,000 users is just a vanity project."
+

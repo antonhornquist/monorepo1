@@ -1,0 +1,11 @@
+
+bazel query --noimplicit_deps "deps(//...)" --output graph | dot -Tpng > graph.png && start graph.png 
+
+bazel query --noimplicit_deps "deps(//webapp)" --output graph | dot -Tpng > graph.png && start graph.png
+
+bazel query "deps(//webapp)" --output graph | dot -Tpng > graph.png && start graph.png
+
+bazel query --noimplicit_deps "deps(//webapp)"
+
+
+
