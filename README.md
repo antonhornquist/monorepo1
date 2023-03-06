@@ -52,19 +52,21 @@ This replaces the use of `go test` for tests written in Go source code.
 
 ### Building a specific target or running a specific test
 
-`$ bazel build //webapp:webapp` (`$ bazel build //webapp` can also be used)
+`$ bazel build //webapp:webapp` (`$ bazel build //webapp` can also be used if package name is the same as the target name)
 
 `$ bazel test //uniqueid:uniqueid_test`
 
 ### Running a specific binary
 
-`$ bazel run //webapp:webapp` (same as `$ bazel run //webapp`)
+`$ bazel run //webapp:webapp` (or `$ bazel run //webapp`)
+
+### Go toolchain version
 
 ### Platform specific considerations and cross-compilation
 
 Bazel and Go (using `rules_go`) supports cross-compilation of source code, see [How do I cross-compile?](https://github.com/bazelbuild/rules_go#how-do-i-cross-compile) in the `rules_go` documentation.
 
-If `--platforms` option is not supplied the platform on which Bazel runs takes precedence. During evaluation, it became apparent how build results diverged between a local Windows workstation and Linux based Github Actions pipeline. Build results of simple Golang builds diverge in terms of the binaries produced. In addition, low level external `Cgo` dependencies have very different dependency graphs between platforms and may cause a Bazel build that passes on Windows to break on Linux. Bazel is correctly reporting these results.
+Bazel effectively defaults to the target, host, and exec platforms all matching the local build system. If `--platforms` option is not supplied the platform on which Bazel runs takes precedence. During evaluation, it became apparent how build results diverged between a local Windows workstation and Linux based Github Actions pipeline. Build results of simple Golang builds diverge in terms of the binaries produced. In addition, low level external `Cgo` dependencies have very different dependency graphs between platforms and may cause a Bazel build that passes on Windows to break on Linux. Bazel is correctly reporting these results.
 
 Specifying a common platform (ie. `bazel build --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64 //...`) makes compilation more deterministic but may have the unintented side effect of producing binaries that cannot be executed on the platform on which Bazel is invoked. In practice running tests (which are built as golang binaries returning a non-zero exit on test failure) built using Bazel for the Linux platform (ie. `bazel test --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64 //...`) will not produce the correct result on a different platform such as Windows simply because the resulting binaries are not compatible with the operating system.
 
@@ -128,9 +130,17 @@ Bazel has a capability to produce reports of test coverage. The LCOV reporting f
 
 `bazel coverage --combined_report=lcov --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64 //...`
 
-The coverage report is only output in the non-human-readable lcov format. From this, the genhtml utility (part of the lcov project) can be used to produce a report that can be viewed in a web browser:
+The coverage report is output in the non-human-readable lcov format. From this, the genhtml utility (part of the lcov project) can be used to produce a report that can be viewed in a web browser:
+
+`genhtml --output genhtml "/path/to/_coverage_report.dat"`
+
+An simple example report can be found [here](hack/test-coverage/example-report/).
+
+For further help and information around the genhtml tool, or the lcov coverage format, see the [lcov project](https://github.com/linux-test-project/lcov).
 
 During evaluation test coverage commands failed when building for the Windows platform but succeeded in the Github CI workflow.
+
+Notably, no way to discern general code coverage in per cent has been found. The coverage reports are only dealing with packages that have tests written for them. Packages that do not have tests are ignored.
 
 ## Visualizing the build
 
