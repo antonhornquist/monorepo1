@@ -215,7 +215,7 @@ $ bazel query --noimplicit_deps "deps(//...)" --output graph | dot -Tpng > graph
 All dependencies including external go dependencies and implicit dependencies can be included in the visualization. This makes the graph even larger.
 
 ```
-$ bazel query --noimplicit_deps "deps(//...)" --output graph | dot -Tpng > graph.png && start graph.png
+$ bazel query "deps(//...)" --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
 ## Build aware sparse checkouts
