@@ -220,7 +220,7 @@ The resulting visualization of the invocation above is a graph of all targets an
 
 ![full build graph](build-graph-1.png)
 
-More advanced queries are documented [here](EXAMPLE-BAZEL-QUERIES.md)
+Examples of more advanced queries can be found [here](EXAMPLE-BAZEL-QUERIES.md).
 
 ## Build aware sparse checkouts
 

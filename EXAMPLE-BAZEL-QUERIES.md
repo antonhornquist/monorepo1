@@ -32,7 +32,7 @@ $ bazel query "deps(//eventstore:eventstore, 4)" --output graph | dot -Tpng > gr
 $ bazel query "deps(//eventstore:eventstore, 2)" --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
-Excluding tool dependencies also helps narrow down the visualization if we, for instance, don't care for the Go language toolchain dependency.
+Excluding tool dependencies also helps narrow down the visualization if we, for instance, don't care about the Go language toolchain dependency.
 
 ```
 $ bazel query "deps(//eventstore:eventstore)" --notool_deps --output graph | dot -Tpng > graph.png && start graph.png
@@ -50,7 +50,7 @@ Another alternative is to use `filter()` and `except` to exclude targets based o
 $ bazel query "deps(//eventstore:eventstore) except filter(\"@\", deps(//eventstore:eventstore))" --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
-TODO: add visualization
+![build graph](build-graph-4.png)
 
 Using `rdeps()` reverse lookup of target dependants can also be performed, ie. for the `//uniqueid:uniqueid` target:
 
@@ -58,7 +58,7 @@ Using `rdeps()` reverse lookup of target dependants can also be performed, ie. f
 $ bazel query "rdeps(..., //uniqueid:uniqueid)" --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
-TODO: add visualization
+![build graph](build-graph-5.png)
 
 To narrow down a result set Bazel can also be queried for a subset of paths, ie. to visualize all direct and transient dependencies to a particular build target. The below command will visualize the `//eventstore:eventstore` binary target and all its dependencies within the workspace:
 
@@ -66,9 +66,7 @@ To narrow down a result set Bazel can also be queried for a subset of paths, ie.
 $ bazel query "allpaths(//eventstore:eventstore, //...)" --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
-bazel query "allpaths(//eventstore:mock.go, //...)" --output graph | dot -Tpng > graph.png && start graph.png
-
-TODO: add visualization
+![build graph](build-graph-6.png)
 
 Conversely, the build graph can be queried for all dependants of a particular target. The below command will show all targets in the workspace that directly or indirectly depend on the `//uniqueid:uniqueid` target:
 
@@ -76,7 +74,7 @@ Conversely, the build graph can be queried for all dependants of a particular ta
 $ bazel query "allpaths(//..., //uniqueid:uniqueid)" --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
-TODO: add visualization
+![build graph](build-graph-7.png)
 
 External dependencies are declared up front as part of the build graph and can thus also be analyzed and included in a visualization. The below command will show all targets in the workspace that directly or indirectly depend on the external gin library target:
 
@@ -84,7 +82,7 @@ External dependencies are declared up front as part of the build graph and can t
 $ bazel query "allpaths(//...,@com_github_gin_gonic_gin//:gin)" --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
-TODO: add visualization
+![build graph](build-graph-8.png)
 
 By querying (ie. using `deps()`, `rdeps()` and `allpaths()`) and filtering (ie. using `filter()`) the build graph can be traversed and analyzed textually or visually depending on a given scenario.
 
