@@ -6,6 +6,8 @@ All dependencies of all targets in the workspace including external go dependenc
 $ bazel query "deps(//...)" --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
+![build graph](build-graph-14.png)
+
 All dependencies of all targets in the workspace including external go dependencies but without implicit dependencies can be visualized using the `--noimplicit_deps`. This is still a very large graph.
 
 ```
