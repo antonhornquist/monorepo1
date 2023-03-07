@@ -18,6 +18,8 @@ Narrowing down a use case it's easier to get a usable visualization. Ie. to view
 $ bazel query "deps(//eventstore:eventstore)" --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
+![build graph](build-graph-10.png)
+
 This still is a large graph since it includes all required dependencies to build the target. A second argument can be used for `deps()` to limit how many levels of dependencies are included.
 
 Here, four levels:
@@ -26,11 +28,15 @@ Here, four levels:
 $ bazel query "deps(//eventstore:eventstore, 4)" --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
+![build graph](build-graph-11.png)
+
 ... two levels:
 
 ```
 $ bazel query "deps(//eventstore:eventstore, 2)" --output graph | dot -Tpng > graph.png && start graph.png
 ```
+
+![build graph](build-graph-12.png)
 
 Excluding tool dependencies also helps narrow down the visualization if we, for instance, don't care about the Go language toolchain dependency.
 
@@ -38,11 +44,15 @@ Excluding tool dependencies also helps narrow down the visualization if we, for 
 $ bazel query "deps(//eventstore:eventstore)" --notool_deps --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
+![build graph](build-graph-13.png)
+
 Excluding all implicit dependencies also simplifies the visualization.
 
 ```
 $ bazel query "deps(//eventstore:eventstore)" --noimplicit_deps --output graph | dot -Tpng > graph.png && start graph.png
 ```
+
+![build graph](build-graph-9.png)
 
 Another alternative is to use `filter()` and `except` to exclude targets based on name.
 
