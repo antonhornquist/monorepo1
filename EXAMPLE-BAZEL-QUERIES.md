@@ -12,7 +12,7 @@ All dependencies of all targets in the workspace including external go dependenc
 $ bazel query --noimplicit_deps "deps(//...)" --output graph | dot -Tpng > graph.png && start graph.png
 ```
 
-![build graph](build-graph-16.png)
+![build graph](build-graph-15.png)
 
 Narrowing down a use case it's easier to get a usable visualization. Ie. to view all dependencies of the `//eventstore:eventstore` target:
 
