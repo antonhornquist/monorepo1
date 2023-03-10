@@ -22,7 +22,6 @@ go_library(
 
 go_image(
     name = "image",
-    # goarch = "amd64",
     srcs = ["main.go"],
     importpath = "github.com/antonhornquist/monorepo1/webapp",
 )

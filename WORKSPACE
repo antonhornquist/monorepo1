@@ -21,6 +21,19 @@ go_rules_dependencies()
 
 go_register_toolchains(version = "1.19.5")
 
+# The following snippet tells Bazel to fetch the bazel_gazelle repository and its dependencies. See https://github.com/bazelbuild/bazel-gazelle
+http_archive(
+    name = "bazel_gazelle",
+    sha256 = "ecba0f04f96b4960a5b250c8e8eeec42281035970aa8852dda73098274d14a1d",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.29.0/bazel-gazelle-v0.29.0.tar.gz",
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.29.0/bazel-gazelle-v0.29.0.tar.gz",
+    ],
+)
+
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
+
+# The following snippet tells Bazel to fetch the rules_docker repository and its dependencies. See https://github.com/bazelbuild/rules_docker
 http_archive(
     name = "io_bazel_rules_docker",
     sha256 = "b1e80761a8a8243d03ebca8845e9cc1ba6c82ce7c5179ce2b295cd36f7e394bf",
@@ -41,18 +54,6 @@ load(
 
 _go_image_repos()
 
-
-# The following snippet tells Bazel to fetch the bazel_gazelle repository and its dependencies. See https://github.com/bazelbuild/bazel-gazelle
-http_archive(
-    name = "bazel_gazelle",
-    sha256 = "ecba0f04f96b4960a5b250c8e8eeec42281035970aa8852dda73098274d14a1d",
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.29.0/bazel-gazelle-v0.29.0.tar.gz",
-        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.29.0/bazel-gazelle-v0.29.0.tar.gz",
-    ],
-)
-
-load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 
 go_repository(
     name = "com_github_bytedance_sonic",
