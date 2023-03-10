@@ -57,8 +57,8 @@ load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 go_repository(
     name = "com_github_bytedance_sonic",
     importpath = "github.com/bytedance/sonic",
-    sum = "h1:Eq1oE3xWIBE3tj2ZtJFK1rDAx7+uA4bRytozVhXMHKY=",
-    version = "v1.8.2",
+    sum = "h1:ea0Xadu+sHlu7x5O3gKhRpQ1IKiMrSiHttPF0ybECuA=",
+    version = "v1.8.0",
 )
 
 go_repository(
@@ -155,8 +155,8 @@ go_repository(
 go_repository(
     name = "com_github_klauspost_cpuid_v2",
     importpath = "github.com/klauspost/cpuid/v2",
-    sum = "h1:acbojRNwl3o09bUq+yDCtZFc1aiwaAAxtcn8YkZXnvk=",
-    version = "v2.2.4",
+    sum = "h1:lgaqFMSdTdQYdZ04uHyN2d/eKdOMyi2YLSvlQIBFYa4=",
+    version = "v2.0.9",
 )
 
 go_repository(
@@ -176,8 +176,8 @@ go_repository(
 go_repository(
     name = "com_github_leodido_go_urn",
     importpath = "github.com/leodido/go-urn",
-    sum = "h1:7z68G0FCGvDk646jz1AelTYNYWrTNm0bEcFAo147wt4=",
-    version = "v1.2.2",
+    sum = "h1:BqpAaACuzVSgi/VLzGZIobT2z4v53pjosyNd9Yv6n/w=",
+    version = "v1.2.1",
 )
 
 go_repository(
@@ -190,8 +190,8 @@ go_repository(
 go_repository(
     name = "com_github_modern_go_concurrent",
     importpath = "github.com/modern-go/concurrent",
-    sum = "h1:TRLaZ9cD/w8PVh93nsPXa1VrQ6jlwL5oN8l14QlcNfg=",
-    version = "v0.0.0-20180306012644-bacd9c7ef1dd",
+    sum = "h1:ZqeYNhU3OHLH3mGKHDcjJRFFRrJa6eAM5H+CtDdOsPc=",
+    version = "v0.0.0-20180228061459-e0a39a4cb421",
 )
 
 go_repository(
@@ -253,8 +253,8 @@ go_repository(
 go_repository(
     name = "com_github_ugorji_go_codec",
     importpath = "github.com/ugorji/go/codec",
-    sum = "h1:eimT6Lsr+2lzmSZxPhLFoOWFmQqwk0fllJJ5hEbTXtQ=",
-    version = "v1.2.10",
+    sum = "h1:rmenucSohSTiyL09Y+l2OCk+FrMxGMzho2+tjr5ticU=",
+    version = "v1.2.9",
 )
 
 go_repository(
@@ -288,15 +288,15 @@ go_repository(
 go_repository(
     name = "org_golang_x_arch",
     importpath = "golang.org/x/arch",
-    sum = "h1:W1sUEHXiJTfjaFJ5SLo0N6lZn+0eO5gWD1MFeTGqQEY=",
-    version = "v0.2.0",
+    sum = "h1:18EFjUmQOcUvxNYSkA6jO9VAiXCnxFY6NyDX0bHDmkU=",
+    version = "v0.0.0-20210923205945-b76863e36670",
 )
 
 go_repository(
     name = "org_golang_x_crypto",
     importpath = "golang.org/x/crypto",
-    sum = "h1:qfktjS5LUO+fFKeJXZ+ikTRijMmljikvG68fpMMruSc=",
-    version = "v0.6.0",
+    sum = "h1:U/0M97KRkSFvyD/3FSmdP5W5swImpNgle/EHFhOsQPE=",
+    version = "v0.5.0",
 )
 
 go_repository(
