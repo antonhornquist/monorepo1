@@ -21,6 +21,27 @@ go_rules_dependencies()
 
 go_register_toolchains(version = "1.19.5")
 
+http_archive(
+    name = "io_bazel_rules_docker",
+    sha256 = "b1e80761a8a8243d03ebca8845e9cc1ba6c82ce7c5179ce2b295cd36f7e394bf",
+    urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v0.25.0/rules_docker-v0.25.0.tar.gz"],
+)
+
+load(
+    "@io_bazel_rules_docker//repositories:repositories.bzl",
+    container_repositories = "repositories",
+)
+
+container_repositories()
+
+load(
+    "@io_bazel_rules_docker//go:image.bzl",
+    _go_image_repos = "repositories",
+)
+
+_go_image_repos()
+
+
 # The following snippet tells Bazel to fetch the bazel_gazelle repository and its dependencies. See https://github.com/bazelbuild/bazel-gazelle
 http_archive(
     name = "bazel_gazelle",
