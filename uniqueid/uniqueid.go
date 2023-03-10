@@ -9,6 +9,7 @@ func PseudoUniqueId() string {
 	var alphanumericChars = []rune("abcdefghijklmnopqrstuvwxyz0123456789")
 	n := 5
 
+	// dummy fix
 	rand.Seed(time.Now().UnixNano())
 
 	b := make([]rune, n)
