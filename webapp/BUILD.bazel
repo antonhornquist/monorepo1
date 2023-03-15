@@ -1,4 +1,5 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("@io_bazel_rules_docker//go:image.bzl", "go_image")
 
 go_binary(
     name = "webapp",
@@ -16,4 +17,10 @@ go_library(
     importpath = "github.com/antonhornquist/monorepo1/webapp",
     visibility = ["//visibility:private"],
     deps = ["//httpservercommon"],
+)
+
+go_image(
+    name = "image",
+    embed = [":webapp_lib"],
+    visibility = ["//visibility:public"],
 )
