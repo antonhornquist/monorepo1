@@ -62,21 +62,6 @@ k8s_object(
 
     # A template of a Kubernetes Deployment object yaml.
     template = "service.yaml",
-
-    # An optional collection of docker_build images to publish
-    # when this target is bazel run.  The digest of the published
-    # image is substituted as a part of the resolution process.
-    #images = {
-    #    "rnddockerdev.azurecr.io/ifs/ahorse-monorepo1-poc-webapp:dev": ":image"
-    #},
-)
-
-k8s_object(
-    name = "service",
-    kind = "service",
-
-    # A template of a Kubernetes Deployment object yaml.
-    template = "service.yaml",
 )
 
 k8s_objects(
