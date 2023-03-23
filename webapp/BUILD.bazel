@@ -1,10 +1,16 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 load("@io_bazel_rules_docker//go:image.bzl", "go_image")
+load("@io_bazel_rules_k8s//k8s:object.bzl", "k8s_object")
+load("@io_bazel_rules_k8s//k8s:objects.bzl", "k8s_objects")
+
+#load("@rules_oci//oci:defs.bzl", "oci_image")
 
 go_binary(
     name = "webapp",
     embed = [":webapp_lib"],
     visibility = ["//visibility:public"],
+    goos = "linux",
+    goarch = "amd64"
 )
 
 go_library(
@@ -23,4 +29,69 @@ go_image(
     name = "image",
     embed = [":webapp_lib"],
     visibility = ["//visibility:public"],
+    goos = "linux",
+    goarch = "amd64"
 )
+
+go_image(
+    name = "image_arm64",
+    embed = [":webapp_lib"],
+    visibility = ["//visibility:public"],
+    goos = "linux",
+    goarch = "arm64"
+)
+
+k8s_object(
+    name = "deployment",
+    kind = "deployment",
+
+    # A template of a Kubernetes Deployment object yaml.
+    template = "deployment.yaml",
+
+    # An optional collection of docker_build images to publish
+    # when this target is bazel run.  The digest of the published
+    # image is substituted as a part of the resolution process.
+    #images = {
+    #    "webapp:dev": ":image"
+    #},
+)
+
+k8s_object(
+    name = "service",
+    kind = "service",
+
+    # A template of a Kubernetes Deployment object yaml.
+    template = "service.yaml",
+
+    # An optional collection of docker_build images to publish
+    # when this target is bazel run.  The digest of the published
+    # image is substituted as a part of the resolution process.
+    #images = {
+    #    "rnddockerdev.azurecr.io/ifs/ahorse-monorepo1-poc-webapp:dev": ":image"
+    #},
+)
+
+k8s_objects(
+    name = "microservice",
+    objects = [
+		":deployment",
+		":service"
+	]
+)
+
+#pkg_tar(
+#    name = "tar",
+#    srcs = [":webapp"],
+#)
+#
+#oci_image(
+#    name = "image",
+#    architecture = select({
+#        "@platforms//cpu:arm64": "arm64",
+#        "@platforms//cpu:x86_64": "amd64",
+#    }),
+#    base = "@distroless_base",
+#    tars = [":tar"],
+#    entrypoint = ["/app"],
+#    os = "linux",
+#)
