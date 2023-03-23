@@ -71,6 +71,14 @@ k8s_object(
     #},
 )
 
+k8s_object(
+    name = "service",
+    kind = "service",
+
+    # A template of a Kubernetes Deployment object yaml.
+    template = "service.yaml",
+)
+
 k8s_objects(
     name = "microservice",
     objects = [
