@@ -64,13 +64,13 @@ k8s_object(
     template = "service.yaml",
 )
 
-k8s_objects(
-    name = "microservice",
-    objects = [
-		":deployment",
-		":service"
-	]
-)
+#k8s_objects(
+#    name = "microservice",
+#    objects = [
+#		":deployment",
+#		":service"
+#	]
+#)
 
 #pkg_tar(
 #    name = "tar",
