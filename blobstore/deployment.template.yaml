@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blobstore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blobstore
+  template:
+    metadata:
+      labels:
+        app: blobstore
+    spec:
+      containers:
+      - name: blobstore
+        image: //blobstore:image
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080

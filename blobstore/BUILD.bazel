@@ -1,4 +1,6 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("@io_bazel_rules_docker//go:image.bzl", "go_image")
+load("@com_adobe_rules_gitops//gitops:defs.bzl", "k8s_deploy")
 
 go_binary(
     name = "blobstore",
@@ -15,4 +17,23 @@ go_library(
         "//httpservercommon",
         "//uniqueid",
     ],
+)
+
+go_image(
+    name = "image",
+    embed = [":blobstore_lib"],
+    visibility = ["//visibility:public"],
+    goos = "linux",
+    goarch = "amd64"
+)
+
+k8s_deploy(
+    name = "deployment",
+    images = {
+        "image": ":image",
+    },
+    manifests = [
+        "deployment.template.yaml"
+    ],
+     namespace = "default",
 )

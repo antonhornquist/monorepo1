@@ -401,3 +401,27 @@ k8s_repositories()
 #load("@io_bazel_rules_k8s//k8s:k8s_go_deps.bzl", k8s_go_deps = "deps")
 #
 #k8s_go_deps()
+
+#load("@io_bazel_rules_k8s//k8s:k8s.bzl", "k8s_defaults")
+#
+#k8s_defaults(
+#	name = "k8s_dev_deploy",
+#	kind = "deployment",
+#	cluster = "bnd-ci-3",
+#	namespace = "monorepo-poc"
+#)
+
+http_archive(
+    name = "com_adobe_rules_gitops",
+    sha256 = "83124a8056b1e0f555c97adeef77ec6dff387eb3f5bc58f212b376ba06d070dd",
+    strip_prefix = "rules_gitops-0.17.2",
+    urls = ["https://github.com/adobe/rules_gitops/archive/refs/tags/v0.17.2.tar.gz"],
+)
+
+load("@com_adobe_rules_gitops//gitops:deps.bzl", "rules_gitops_dependencies")
+
+rules_gitops_dependencies()
+
+load("@com_adobe_rules_gitops//gitops:repositories.bzl", "rules_gitops_repositories")
+
+rules_gitops_repositories()
